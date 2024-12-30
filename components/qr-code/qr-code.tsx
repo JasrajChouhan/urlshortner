@@ -1,8 +1,8 @@
-import { useState, useEffect } from "react";
 import Image from "next/image";
+import { useEffect, useState } from "react";
 
 import { qrCodeGenerator } from "@/utils/qr-code-genertor";
-
+import { QrCodeButtons } from "../QrCodeButtons/qr-code-buttons";
 export const QrCode = ({ link }: { link: string }) => {
   const [data, setData] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -26,6 +26,7 @@ export const QrCode = ({ link }: { link: string }) => {
 
   return (
     <div>
+      {data && <QrCodeButtons qrCodeData={data} />}
       {error && <p style={{ color: "red" }}>{error}</p>}
       {data ? (
         <Image src={data} alt="QR Code" width={200} height={200} />
