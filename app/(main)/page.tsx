@@ -1,6 +1,7 @@
 "use client";
 import { Header } from "@/components/Header/header";
 import { InputCard } from "@/components/Input-Card/input-card";
+import { QrCode } from "@/components/qr-code/qr-code";
 import { useState } from "react";
 
 export default function Home() {
@@ -77,6 +78,14 @@ export default function Home() {
           }
         </div>
       </div>
+      <div className="flex justify-center items-center mt-12" >
+        {
+          shortId && (
+            <QrCode link={`${window.location.origin}/api/${shortId}`} />
+          )
+        }
+      </div>
+
     </div>
   );
 }
