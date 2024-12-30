@@ -21,7 +21,7 @@ export const POST = async (req: Request) => {
     })
 
     if (existingUrl) {
-      return NextResponse.json({ shortUrl: existingUrl.shortUrl });
+      return NextResponse.json({ shortUrl: existingUrl.shortUrl, shortId: existingUrl.shortId });
     }
 
     // new url 
@@ -36,7 +36,7 @@ export const POST = async (req: Request) => {
       }
     })
 
-    return NextResponse.json({ shortUrl: newUrl.shortUrl });
+    return NextResponse.json({ shortUrl: newUrl.shortUrl, shortId: newUrl.shortId });
   } catch (error) {
     return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
   }

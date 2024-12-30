@@ -1,9 +1,18 @@
 import { Input } from "@/components/input";
-import { useState } from "react";
 
-export const InputCard = () => {
-  const [longUrl, setLongUrl] = useState('');
-  const [shortUrl, setShortUrl] = useState('');
+export interface InputCardProps {
+  longUrl: string;
+  setLongUrl: (value: string) => void;
+  setShortUrl: (value: string) => void;
+  setShortId : (value : string) => void;
+}
+
+export const InputCard = ({
+  longUrl,
+  setLongUrl,
+  setShortUrl,
+  setShortId
+}: InputCardProps) => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -16,8 +25,10 @@ export const InputCard = () => {
       });
 
       const data = await response.json();
+      console.log(data)
       if (response.ok) {
         setShortUrl(data.shortUrl);
+        setShortId(data.shortId);
       } else {
         console.error(data.error);
       }
@@ -30,10 +41,10 @@ export const InputCard = () => {
     <div>
       <div>
         <form
-          method="post" 
+          method="post"
           className="flex flex-col sm:flex-row items-center gap-2"
           onSubmit={handleSubmit}
-          >
+        >
           <Input
             type="text"
             value={longUrl}
@@ -52,15 +63,7 @@ export const InputCard = () => {
           </button>
         </form>
       </div>
-
-      {shortUrl && (
-        <div>
-          <p>Short URL:</p>
-          <a href={shortUrl} target="_blank" rel="noopener noreferrer">
-            {shortUrl}
-          </a>
-        </div>
-      )}
+      
     </div>
   );
 };
